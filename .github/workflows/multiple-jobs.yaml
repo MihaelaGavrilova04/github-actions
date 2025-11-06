@@ -8,7 +8,8 @@ jobs:
     steps:
       - name: Clone down repository
         uses: actions/checkout@v4
-
+      - name: Check Gradle version
+        run: gradle -v
       - name: Build application
         run: ci/build-app.sh # билдва и пакетира всичко в един готов .jar файл от проекта app/
 
