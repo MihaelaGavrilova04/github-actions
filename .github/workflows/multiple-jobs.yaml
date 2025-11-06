@@ -1,4 +1,4 @@
-name: Main workflow
+name: Artifact workflow
 on: push
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gradle-build
-          path: build/libs/app.jar # Kачваm готовия jar като артефакт в github sctions storage 
+          path: app/build/libs/*.jar # Kачваm готовия jar като артефакт в github sctions storage 
 
   Test:
     runs-on: ubuntu-latest
