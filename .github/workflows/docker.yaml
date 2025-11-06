@@ -58,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: gradle-build
-          path: .
+          path: build/libs/
 
       - name: Build docker image using script
         run: bash ci/build-docker.sh
