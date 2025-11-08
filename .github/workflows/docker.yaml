@@ -1,5 +1,16 @@
 name: Dockerize automation
-on: push
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/docker.yaml'
+      - 'app/**'
+      - 'Dockerfile'
 
 # always do the Build step first with: (1) runs-on (2)container and add if it (3)needs a previous job
 # then it is time for the steps: (1) Checkout repository (2) Build or get the already build artifact (3) Do the job
@@ -58,7 +69,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: gradle-build
-          path: build/libs/
+          path: app/build/libs/
 
       - name: Build docker image using script
         run: bash ci/build-docker.sh

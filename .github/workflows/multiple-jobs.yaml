@@ -1,6 +1,15 @@
-name: Artifact workflow
-on: push
-
+name: Test workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/multiple-jobs.yaml'
+      - 'app/**'
+  
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -23,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     needs: Build   # този job чака "Build" и ще стартира след него
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
