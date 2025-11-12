@@ -42,13 +42,25 @@ jobs:
       run: chmod +x ci/build-app.sh && ci/build-app.sh
 
   sonarqube:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v4
-          with:
-        # Disabling shallow clones is recommended for improving the relevancy of reporting
-            fetch-depth: 0
-        - name: SonarQube Scan
-          uses: sonarsource/sonarcloud-github-action@v4.0.0 #, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    needs: Build
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download code
+        uses: actions/download-artifact@v4
+        with:
+          name: code
+          path: .
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v4.0.2
+        with:
+          projectKey: test-org-2025-1
+          organization: test-org-2025
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
