@@ -41,6 +41,9 @@ jobs:
     - name: Build with Gradle
       run: chmod +x ci/build-app.sh && ci/build-app.sh
   Docker-image:
+    env:
+      github_username:
+        mihaelagavrilova04
     runs-on: ubuntu-latest
     needs: [Build,Test]
     steps:
