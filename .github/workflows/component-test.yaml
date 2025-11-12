@@ -58,7 +58,7 @@ jobs:
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v5.0.0
       with:
-        projectKey: test-org-2025-1
-        organization: test-org-2025
+        projectKey: MihaelaGavrilova04_github-actions
+        organization: mihaelagavrilova04
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
