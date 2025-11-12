@@ -46,21 +46,19 @@ jobs:
     container: gradle:6-jdk11
     needs: Build
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Download code
-        uses: actions/download-artifact@v4
-        with:
-          name: code
-          path: .
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v5.0.0
-        with:
-          projectKey: test-org-2025-1
-          organization: test-org-2025
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
+    - name: Download code
+      uses: actions/download-artifact@v4
+      with:
+        name: code
+        path: .
+    
+    - name: Build for SonarQube (if needed)
+      run: chmod +x ci/build-app.sh && ci/build-app.sh
+    
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v5.0.0
+      with:
+        projectKey: test-org-2025-1
+        organization: test-org-2025
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
